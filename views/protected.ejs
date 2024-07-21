@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .myText{
+      font-size: 1.1rem;
+      padding: 0.1rem;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen flex items-center justify-center">
+  <div class="fixed top-5 right-5"><a href="/logout">Logout</a></div>
+  <div class="max-w-md w-full bg-gray-100 p-8 rounded shadow-md">
+    <h1 class="text-3xl font-semibold mb-4" id="location-heading">Weather App</h1>
+    <div class="flex mb-4">
+      <input type="text" id="location-input" class="w-full px-3 py-2 mr-2 rounded-lg border-gray-300 focus:border-yellow-500 focus:ring focus:ring-yellow-200 focus:ring-opacity-50" placeholder="Enter location">
+      <button id="search-btn" class="px-4 py-2 bg-yellow-500 text-white rounded-lg focus:outline-none hover:bg-yellow-300">Search</button>
+    </div>
+    <div id="weather-info">
+      Enter a location and click Search to get weather information.
+    </div>
+  </div>
+
+  <!-- JavaScript for fetching and displaying weather -->
+  <script>
+    async function getWeather(location) {
+      const apiKey = '8de72eb682490c6dc8153ded4c853068';
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error('Weather data not found');
+        }
+        const data = await response.json();
+        if (data.cod === '404') {
+          throw new Error('Location not found');
+        }
+        return data;
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+        throw error; // Re-throw the error to be caught by the calling function
+      }
+    }
+
+    async function displayWeather(location) {
+      const weatherInfoElement = document.getElementById('weather-info');
+      const locationHeadingElement = document.getElementById('location-heading');
+      const locationInput = document.getElementById('location-input');
+
+      try {
+        const weatherData = await getWeather(location);
+
+        const flagUrl = `https://flagsapi.com/${weatherData.sys.country}/flat/64.png`;
+        weatherInfoElement.innerHTML = `
+          <div class="flex items-center mb-4">
+            <img src="${flagUrl}" class="mr-2" style="width: 50px; height: 50px;" alt="Flag">
+            <div>
+              <p class="font-semibold myText"> 🌡️ Temperature: ${weatherData.main.temp} °C</p>
+              <p class="myText">  ✏️ Description: ${weatherData.weather[0].description}</p>
+              <p class="myText">💧Humidity: ${weatherData.main.humidity} %</p>
+              <p class="myText"> 🍃 Wind Speed: ${weatherData.wind.speed} m/s</p>
+            </div>
+          </div>
+        `;
+        locationHeadingElement.textContent = `Weather in ${weatherData.name}, ${weatherData.sys.country}`;
+        locationInput.value = ''; // Clear the input field
+      } catch (error) {
+        weatherInfoElement.textContent = error.message === 'Weather data not found' ? 'Weather data not available for the entered location.' : 'Location does not exist.';
+        locationHeadingElement.textContent = 'Weather App';
+      }
+    }
+
+    // Search button click event listener
+    document.getElementById('search-btn').addEventListener('click', function() {
+      const location = document.getElementById('location-input').value.trim();
+      if (location !== '') {
+        displayWeather(location);
+      } else {
+        alert('Please enter a location.');
+      }
+    });
+
+    // Handle enter key press in the input field
+    document.getElementById('location-input').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        const location = document.getElementById('location-input').value.trim();
+        if (location !== '') {
+          displayWeather(location);
+        } else {
+          alert('Please enter a location.');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="bg-white w-full max-w-md rounded-lg shadow-lg overflow-hidden mx-4">
+      <div class="px-6 py-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+        <form action="/login" method="POST">
+          <div class="mb-4">
+            <label for="username" class="block text-gray-700 text-sm font-bold mb-2">E-mail:</label>
+            <input type="email" name="username" id="username" class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter your e-mail" required />
+          </div>
+          <div class="mb-6">
+            <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+            <input type="password" name="password" id="password" class="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter your password" required />
+          </div>
+          <div class="flex items-center justify-center">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Login</button>
+          </div>
+        </form>
+        <p class="mt-4 text-center text-gray-500 text-xs"> Don't have an account? <a href="/register" class="text-blue-500">Create one now!</a> </p>
+      </div>
+    </div>
+  </body>
+</html>

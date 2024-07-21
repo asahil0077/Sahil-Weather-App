@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="max-w-md bg-white rounded-lg shadow-lg p-6 w-full mx-5">
+      <h1 class="text-3xl font-bold mb-4 text-center">Weather API Project</h1>
+      <p class="mb-4 text-center text-">Search any location <i class="fa-solid fa-location-dot text-red-600"></i> to know its temperature.</p>
+      <hr class="my-4" />
+      <p class="mb-4 text-center bg-yellow-300 p-1">You need to be signed in first.</p>
+      <div class="mb-2 flex justify-center">
+        <span class="mr-2">Already have an account?<span class="text-transparent select-none">______..</span></span>
+        <a href="/login" class="text-white bg-blue-500 w-20 text-center p-1 rounded-sm hover:bg-blue-700">Login</a>
+      </div>
+      <div class="flex justify-center">
+        <span class="mr-2">New User? Create an Account<span class="text-transparent select-none">__.</span></span>
+        <a href="/register" class="text-white bg-blue-500 w-20 text-center p-1 rounded-sm hover:bg-blue-700">Register</a>
+      </div>
+    </div>
+  </body>
+</html>
